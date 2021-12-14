@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>weebee welcome new user</title>
+    <style>
+      body {
+        background: #fdfcfc;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+      .container {
+        width: 50rem;
+        margin: auto;
+      }
+      header {
+        background-color: #9ef5af;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 0;
+      }
+      article {
+        margin-top: 0;
+        background: #fdfcfc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>Weebee</header>
+      <article>
+        <h1>Your Weebee account has been created</h2>
+        <h5>Dear, {{ account.getFullName }}</h5>
+        <p>
+          your weebee account have been created You can now enjoy our services
+          right now
+        </p>
+        <p>Your weebee address is: {{account.weebeeAddress}}</p>
+        <p>Your weebee account number is: {{account.accountNumber}}</p>
+      </article>
+    </div>
+  </body>
+</html>
