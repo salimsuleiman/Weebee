@@ -35,6 +35,6 @@ STATES = [
 ]
 
 GENDER_CHOICES = [
-        ('Male', 'Male'),
-        ('Female', 'Female'),
+        ('male', 'Male'),
+        ('female', 'Female'),
 ]

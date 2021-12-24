@@ -24,5 +24,5 @@ def create_customer_instant(data, Customer):
 
 
 def generate_account_number():
-    random_str = get_random_string(10, allowed_chars='0123456789')
+    random_str = get_random_string(11, allowed_chars='01234567890987654321')
     return int(random_str)

@@ -4,6 +4,6 @@ from .views import *
 
 
 urlpatterns = [
-    path('new-customer/', createSignup)
-    # path('create-account/'),
+    path('create-customer/', CreateCustomer),
+    path('create-account/<int:customerID>/', CreateAccount),
 ]

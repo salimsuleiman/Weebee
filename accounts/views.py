@@ -1,37 +1,51 @@
 from rest_framework.response import Response
 from .models import Customer, Account, AccountType
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.decorators import api_view
 import django 
-from .functions import generate_account_number, create_customer_instant
+from .functions import generate_account_number
 from .models import Customer
 from .functions import *
+from .forms import *
+from django.shortcuts import get_object_or_404
+import accounts
 
 @api_view(['POST'])
-def createSignup(request):
-    """New Customer and Account Set up"""
-    print(request.data)
+def CreateCustomer(request):
+    form = CreateCustomerForm(request.data)
+    if form.is_valid():
+        if form.instance.age >= 18:
+            form.save()
+            return Response({'detail': 'customer is successfully created.'})
+        else:
+            return Response({'error': 'valid age must be above 18 above'})
+    else:
+        errors = dict(form.errors)
+        return Response(errors)
 
+
+@api_view(['POST'])
+def CreateAccount(request, customerID):
+    customer = get_object_or_404(Customer, id=customerID)
+
+    try:
+        accountType = AccountType.objects.get(name=request.data['accountType'])
+        
+    except accounts.models.AccountType.DoesNotExist:
+        return Response({'accountType': ['ivalid account type defination']})
+    except KeyError:
+        return Response({'accountType': ['This field is required.']})
+
+    try:
+        account = Account(
+            owner=customer,
+            accountNumber=generate_account_number(),
+            weebeeAddress=f"{customer.firstName}{customer.id}@weebee.com",
+            accountType=accountType
+        )
+        account.save()
+        return Response({'success': [f'[{customer.getFullName}] account successfully opened account']})
+    except django.db.utils.IntegrityError:
+        return Response({'error': ['This is customer already has an account']})
+   
 
     
-    # customerAccountType = AccountType.objects.filter(name=request.data['AccountType']).first()
-    # try:
-    #     customer = create_customer_instant(request.data, Customer)
-    # except django.utils.datastructures.MultiValueDictKeyError:
-    #     return Response({'detail': 'data is Not Complete'})     
-
-    # if request.data['AccountType'].title() not in ['Credit', 'Debit']:
-    #     return Response({'detail': 'InValid Account Type'})
-    # if customerAccountType == None:
-    #     return Response({'detail': 'InValid account type'})
-    # try:
-    #     customer.save()
-    #     account = Account(
-    #         owner=customer,
-    #         accountNumber=f'00{generate_account_number(10)}',
-    #         accountType=customerAccountType
-    #     )
-    #     account.save()
-    # except django.core.exceptions.ValidationError:
-    #     return Response({'detail': 'Invalid Date format It must be in YYYY-MM-DD format.'})
-    # else:
-    #     return Response({'detail': 'customer is successfully created.'})

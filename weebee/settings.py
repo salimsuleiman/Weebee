@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # 'notifcations',
     # 'django-dia',
     'django_extensions',
+    'errors',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        margin: auto;
+        width: 50rem;
+        /* border: 1px solid black; */
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      header {
+        text-align: center;
+        background-color: #519259;
+        padding: 20px;
+        color: #fff;
+      }
+      .body {
+        border: 1px solid #444;
+        background: rgb(250, 250, 250);
+        padding: 40px;
+      }
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+      }
+
+      .head {
+        text-transform: capitalize;
+        color: white;
+        /* border: 1px solid #dddddd; */
+        font-style: italic;
+        font-size: 0.9rem;
+        background-color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>You have been {{ Transtype }}ed</h1>
+      </header>
+
+      <div class="body">
+        <h2>Dear, {{ account.getFullName }}</h2>
+        <h3>{{transaction.amount}} Weebs</h3>
+        <table>
+          <tr>
+            <td class="head">Account Name</td>
+            <td>{{account.getFullName}}</td>
+          </tr>
+          <tr>
+            <td class="head">Weebee Adress</td>
+            <td>{{ transaction.sender.weebeeAddress }}</td>
+          </tr>
+          <tr>
+            <td class="head">Reference Number</td>
+            <td>{{ transaction.id }}</td>
+          </tr>
+          <tr>
+            <td class="head">Available Balance</td>
+            <td>{{ transaction.previous_balance }}</td>
+          </tr>
+          <tr>
+            <td class="head">Current Balance</td>
+            <td>{{ transaction.current_balance }}</td>
+          </tr>
+          <tr>
+            <td class="head">Beneficiary</td>
+            <td>{{ transaction.beneficiary.owner.getFullName }}
+                {{transaction.beneficiary.weebeeAddress}}
+                {{transaction.beneficiary.accountNumber}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
